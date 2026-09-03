@@ -85,12 +85,12 @@ export async function submitWaitlistForm(panelId: string, data: WaitlistInput) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Failed to submit waitlist form: ${errorText}`);
+      return { success: false, error: `Failed to submit waitlist form: ${errorText}` };
     }
 
     return { success: true };
   } catch (error: any) {
     console.error("Waitlist submission error:", error);
-    throw new Error(error.message || "Failed to submit form");
+    return { success: false, error: error.message || "Failed to submit form" };
   }
 }

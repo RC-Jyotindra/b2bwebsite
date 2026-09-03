@@ -102,7 +102,10 @@ export function WaitlistModal({ open, onOpenChange, panelId = "ad4b2955-e074-449
   async function onSubmit(data: WaitlistInput) {
     try {
       setIsSubmitting(true);
-      await submitWaitlistForm(panelId, data);
+      const res = await submitWaitlistForm(panelId, data);
+      if (res && !res.success) {
+        throw new Error(res.error || "Failed to submit form");
+      }
       toast.success("Success! You have been added to the waitlist.");
       form.reset();
       onOpenChange(false);
