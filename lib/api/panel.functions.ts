@@ -68,6 +68,7 @@ export async function submitWaitlistForm(panelId: string, data: WaitlistInput) {
       lastName: parsedData.lastName,
       email: parsedData.email,
       phone: parsedData.phone,
+      password: parsedData.password,
       properties: parsedData.properties || {},
     };
 

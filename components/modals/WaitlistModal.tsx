@@ -49,6 +49,8 @@ export function WaitlistModal({ open, onOpenChange, panelId = "ad4b2955-e074-449
       lastName: "",
       email: "",
       phone: "",
+      password: "",
+      confirmPassword: "",
       properties: {},
     },
   });
@@ -80,7 +82,7 @@ export function WaitlistModal({ open, onOpenChange, panelId = "ad4b2955-e074-449
     e.preventDefault();
     let fieldsToValidate: string[] = [];
     if (currentStep === 0) {
-      fieldsToValidate = ["firstName", "lastName", "email", "phone"];
+      fieldsToValidate = ["firstName", "lastName", "email", "phone", "password", "confirmPassword"];
     }
     schemaFields.forEach(field => {
       if ((field.stepIndex || 0) === currentStep) {
@@ -356,6 +358,56 @@ export function WaitlistModal({ open, onOpenChange, panelId = "ad4b2955-e074-449
                             <Input
                               type="tel"
                               placeholder="+1 (555) 000-0000"
+                              required
+                              className="bg-zinc-900 border-zinc-800 text-white placeholder:text-gray-500 rounded-none h-10 focus-visible:ring-1 focus-visible:ring-apex-blue focus-visible:ring-offset-0"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-500 text-xs" />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {/* Password */}
+                  <div className="col-span-1">
+                    <FormField
+                      control={form.control}
+                      name="password"
+                      render={({ field }) => (
+                        <FormItem className="space-y-1.5">
+                          <FormLabel className="text-white text-xs uppercase tracking-wider font-semibold">
+                            Password <span className="text-red-500">*</span>
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="••••••••"
+                              required
+                              className="bg-zinc-900 border-zinc-800 text-white placeholder:text-gray-500 rounded-none h-10 focus-visible:ring-1 focus-visible:ring-apex-blue focus-visible:ring-offset-0"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-500 text-xs" />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {/* Confirm Password */}
+                  <div className="col-span-1">
+                    <FormField
+                      control={form.control}
+                      name="confirmPassword"
+                      render={({ field }) => (
+                        <FormItem className="space-y-1.5">
+                          <FormLabel className="text-white text-xs uppercase tracking-wider font-semibold">
+                            Confirm Password <span className="text-red-500">*</span>
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              type="password"
+                              placeholder="••••••••"
                               required
                               className="bg-zinc-900 border-zinc-800 text-white placeholder:text-gray-500 rounded-none h-10 focus-visible:ring-1 focus-visible:ring-apex-blue focus-visible:ring-offset-0"
                               {...field}
