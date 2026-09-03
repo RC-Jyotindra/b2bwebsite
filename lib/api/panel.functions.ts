@@ -15,7 +15,7 @@ export async function getPanelSchema(panelId: string): Promise<PanelSchemaRespon
       headers: {
         "X-Panel-Api-Key": apiKey.trim(),
       },
-      next: { revalidate: 3600 },
+      // next: { revalidate: 180 }, // 3minutes
     }
   );
 
@@ -47,7 +47,7 @@ export async function getPanelSchema(panelId: string): Promise<PanelSchemaRespon
       type,
       required: requiredCustomProps.includes(key),
       options: fieldDef.enum,
-      stepIndex: fieldDef.stepIndex,
+      stepIndex: typeof fieldDef.stepIndex === 'number' ? fieldDef.stepIndex : 0,
     });
   }
 
