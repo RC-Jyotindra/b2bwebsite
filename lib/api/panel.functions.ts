@@ -47,6 +47,7 @@ export async function getPanelSchema(panelId: string): Promise<PanelSchemaRespon
       type,
       required: requiredCustomProps.includes(key),
       options: fieldDef.enum,
+      stepIndex: fieldDef.stepIndex,
     });
   }
 

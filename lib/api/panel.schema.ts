@@ -7,6 +7,7 @@ export interface PanelField {
   description?: string;
   required?: boolean;
   options?: string[];
+  stepIndex?: number; // <-- ADD THIS
 }
 
 export interface PanelSchemaResponse {
