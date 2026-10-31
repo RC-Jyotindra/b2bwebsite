@@ -26,19 +26,19 @@ export async function POST(req: Request) {
     });
   }
 
-  // Get body text for verification
-  const payload = await req.json();
-  const body = JSON.stringify(payload);
+  // Get raw body text for verification
+  const body = await req.text();
 
   let evt: WebhookEvent;
 
   // Verify payload with headers
   try {
-    evt = wh.verify(body, {
+    wh.verify(body, {
       "svix-id": svix_id,
       "svix-timestamp": svix_timestamp,
       "svix-signature": svix_signature,
-    }) as unknown as WebhookEvent;
+    });
+    evt = JSON.parse(body) as WebhookEvent;
   } catch (err) {
     console.error("Error: Could not verify webhook:", err);
     return new Response("Error: Verification error", {
