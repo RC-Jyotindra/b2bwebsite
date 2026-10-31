@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Raleway } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
+import { shadcn } from "@clerk/ui/themes";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
@@ -33,10 +35,12 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", raleway.variable, "font-sans", montserrat.variable)}
     >
       <body className="min-h-full flex flex-col bg-apex-cream dark:bg-apex-black text-apex-black dark:text-apex-white">
-        <SmoothScrollProvider>
-          {children}
-        </SmoothScrollProvider>
-        <Toaster />
+        <ClerkProvider appearance={{ theme: shadcn }}>
+          <SmoothScrollProvider>
+            {children}
+          </SmoothScrollProvider>
+          <Toaster />
+        </ClerkProvider>
       </body>
     </html>
   );

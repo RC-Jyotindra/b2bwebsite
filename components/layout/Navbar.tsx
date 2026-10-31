@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { WaitlistModal } from "@/components/modals/WaitlistModal";
@@ -60,18 +61,25 @@ export default function Navbar() {
             ))}
           </ul>
           <div className="flex items-center gap-4">
-            <button 
-              onClick={() => setIsWaitlistModalOpen(true)} 
-              className="text-sm font-medium text-white hover:text-gray-300 transition-colors"
-            >
-              Login
-            </button>
-            <Button 
-              onClick={() => setIsWaitlistModalOpen(true)}
-              className="bg-apex-blue hover:bg-apex-blue-hover text-white rounded-none px-6"
-            >
-              Get started
-            </Button>
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <button 
+                  className="text-sm font-medium text-white hover:text-gray-300 transition-colors cursor-pointer"
+                >
+                  Login
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <Button 
+                  className="bg-apex-blue hover:bg-apex-blue-hover text-white rounded-none px-6 cursor-pointer"
+                >
+                  Get started
+                </Button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
           </div>
         </div>
 
@@ -101,18 +109,25 @@ export default function Navbar() {
             ))}
           </ul>
           <div className="flex flex-col gap-4 pt-4 border-t border-apex-border">
-            <button 
-              onClick={() => setIsWaitlistModalOpen(true)} 
-              className="text-left text-lg font-medium text-white hover:text-gray-300 transition-colors"
-            >
-              Login
-            </button>
-            <Button 
-              onClick={() => setIsWaitlistModalOpen(true)}
-              className="bg-apex-blue hover:bg-apex-blue-hover text-white rounded-none w-full justify-center"
-            >
-              Get started
-            </Button>
+            <Show when="signed-out">
+              <SignInButton mode="modal">
+                <button 
+                  className="text-left text-lg font-medium text-white hover:text-gray-300 transition-colors cursor-pointer"
+                >
+                  Login
+                </button>
+              </SignInButton>
+              <SignUpButton mode="modal">
+                <Button 
+                  className="bg-apex-blue hover:bg-apex-blue-hover text-white rounded-none w-full justify-center cursor-pointer"
+                >
+                  Get started
+                </Button>
+              </SignUpButton>
+            </Show>
+            <Show when="signed-in">
+              <UserButton />
+            </Show>
           </div>
         </div>
       )}
