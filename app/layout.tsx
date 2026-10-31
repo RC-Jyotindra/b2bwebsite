@@ -29,18 +29,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const content = (
+    <>
+      <SmoothScrollProvider>
+        {children}
+      </SmoothScrollProvider>
+      <Toaster />
+    </>
+  );
+
   return (
     <html
       lang="en"
       className={cn("h-full", "antialiased", raleway.variable, "font-sans", montserrat.variable)}
     >
       <body className="min-h-full flex flex-col bg-apex-cream dark:bg-apex-black text-apex-black dark:text-apex-white">
-        <ClerkProvider appearance={{ theme: shadcn }}>
-          <SmoothScrollProvider>
-            {children}
-          </SmoothScrollProvider>
-          <Toaster />
-        </ClerkProvider>
+        {process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY ? (
+          <ClerkProvider appearance={{ theme: shadcn }}>
+            {content}
+          </ClerkProvider>
+        ) : (
+          content
+        )}
       </body>
     </html>
   );
