@@ -9,8 +9,10 @@ export async function getPanelSchema(panelId: string): Promise<PanelSchemaRespon
     throw new Error("Server configuration error: missing API key");
   }
 
+  const baseUrl = process.env.PANEL_API_BASE_URL || "https://curioxm.com";
+
   const response = await fetch(
-    `https://surveybuilder.io/api/pmm/ingest/${panelId}/schema`,
+    `${baseUrl}/api/pmm/ingest/${panelId}/schema`,
     {
       headers: {
         "X-Panel-Api-Key": apiKey.trim(),
@@ -63,6 +65,8 @@ export async function submitWaitlistForm(panelId: string, data: WaitlistInput) {
       throw new Error("Server configuration error: missing API key");
     }
 
+    const baseUrl = process.env.PANEL_API_BASE_URL || "https://curioxm.com";
+
     const payload = {
       firstName: parsedData.firstName,
       lastName: parsedData.lastName,
@@ -73,7 +77,7 @@ export async function submitWaitlistForm(panelId: string, data: WaitlistInput) {
     };
 
     const response = await fetch(
-      `https://surveybuilder.io/api/pmm/ingest/${panelId}/submit`,
+      `${baseUrl}/api/pmm/ingest/${panelId}/submit`,
       {
         method: "POST",
         headers: {
